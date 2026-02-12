@@ -1,0 +1,759 @@
+/* Insolvenzo Form editor styles (basic stepper) */
+.insolvenzo-form-editor {
+	border: 1px solid #eee;
+	padding: 16px;
+	background: #fff;
+}
+
+.insolvenzo-step-nav {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 12px;
+	flex-wrap: wrap;
+}
+
+.insolvenzo-step-nav__item {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	border: 1px solid transparent;
+	background: transparent;
+	cursor: pointer;
+}
+
+.insolvenzo-step-nav__item.is-active {
+	border-color: var(--wp-admin-theme-color, #0073aa);
+	background: rgba(0,115,170,0.06);
+	border-radius: 4px;
+}
+
+.insolvenzo-step-nav__roman {
+	font-weight: 700;
+	min-width: 22px;
+	text-align: center;
+}
+
+.insolvenzo-step-content {
+	margin-bottom: 12px;
+}
+
+.insolvenzo-step-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+
+.insolvenzo-editor-step {
+  padding: 12px;
+  background: #f9f9f9;
+  border-left: 4px solid #0073aa;
+  margin-bottom: 12px;
+
+  h4 {
+    margin: 0 0 12px 0;
+    color: #333;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="checkbox"] {
+    margin-top: 4px;
+    margin-right: 8px;
+    padding: 4px 8px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+  }
+}
+
+.insolvenzo-form-group {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.insolvenzo-form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.insolvenzo-form-group input[type="text"],
+.insolvenzo-form-group input[type="number"],
+.insolvenzo-form-group input[type="email"],
+.insolvenzo-form-group textarea,
+.insolvenzo-form-group select {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+
+  &:focus {
+    outline: none;
+    border-color: #0073aa;
+    box-shadow: 0 0 0 1px #0073aa;
+  }
+}
+
+.insolvenzo-form-group input[type="checkbox"] {
+  margin-right: 0.5rem;
+  cursor: pointer;
+
+  & + label {
+    display: inline;
+    margin-bottom: 0;
+    font-weight: normal;
+  }
+}
+
+.insolvenzo-form-nav {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+  justify-content: flex-end;
+}
+
+.insolvenzo-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.insolvenzo-btn-primary {
+  background: #0073aa;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: #005a87;
+  }
+}
+
+.insolvenzo-btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+
+  &:hover:not(:disabled) {
+    background: #e0e0e0;
+  }
+}
+
+.insolvenzo-btn-success {
+  background: #28a745;
+  color: #fff;
+
+  &:hover:not(:disabled) {
+    background: #218838 !important;
+  }
+}
+
+/* ===================================
+   Horizontal Stepper Styles
+   =================================== */
+.insolvenzo-horizontal-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem 0 3rem;
+  padding: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.insolvenzo-stepper-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &.active .insolvenzo-stepper-circle {
+    background: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 115, 170, 0.3);
+  }
+  
+  &.completed .insolvenzo-stepper-circle {
+    background: #28a745;
+    color: #fff;
+    border-color: #28a745;
+    
+    &::after {
+      content: '✓';
+      font-weight: bold;
+      font-size: 1.1rem;
+    }
+  }
+  
+  &.completed .insolvenzo-stepper-label {
+    color: #28a745;
+    font-weight: 600;
+  }
+  
+  &.active .insolvenzo-stepper-label {
+    color: #0073aa;
+    font-weight: 700;
+  }
+}
+
+.insolvenzo-stepper-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 3px solid #ddd;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #999;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+}
+
+.insolvenzo-stepper-label {
+  font-size: 0.75rem;
+  color: #666;
+  text-align: center;
+  max-width: 100px;
+  line-height: 1.2;
+  transition: all 0.3s ease;
+}
+
+.insolvenzo-stepper-line {
+  flex: 1;
+  height: 3px;
+  background: #ddd;
+  margin: 0 0.5rem;
+  margin-bottom: 1.5rem;
+  min-width: 20px;
+  max-width: 80px;
+  transition: background 0.3s ease;
+}
+
+/* Line between completed steps should be green */
+.insolvenzo-stepper-step.completed + .insolvenzo-stepper-line {
+  background: #28a745;
+}
+
+/* ===================================
+   Two-Column Layout Styles
+   =================================== */
+.insolvenzo-step-two-columns {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.insolvenzo-step-left {
+  padding-right: 1rem;
+  
+  @media (max-width: 768px) {
+    padding-right: 0;
+  }
+}
+
+.insolvenzo-step-right {
+  padding-left: 1rem;
+  border-left: 2px solid #e0e0e0;
+  position: sticky;
+  top: 125px;
+  align-self: start;
+  height: fit-content;
+
+  .insolvenzo-collapsible:not(.insolvenzo-video-box) .insolvenzo-info-box-panel {
+    max-height: 450px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  
+  @media (max-width: 768px) {
+    padding-left: 0;
+    border-left: none;
+    border-top: 2px solid #e0e0e0;
+    padding-top: 1.5rem;
+
+    .insolvenzo-collapsible,
+    .insolvenzo-collapsible + .insolvenzo-collapsible {
+      position: static;
+      top: auto;
+    }
+
+    position: static;
+    top: auto;
+    height: auto;
+
+    .insolvenzo-collapsible:not(.insolvenzo-video-box) .insolvenzo-info-box-panel {
+      max-height: none;
+      overflow: visible;
+    }
+  }
+}
+
+.insolvenzo-info-box {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h4 {
+    margin: 0 0 1rem 0;
+    color: #0073aa;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+      width: 18px;
+      height: 18px;
+      flex: 0 0 21px;
+      background-image: url('https://insolvenzo.eu/wp-content/uploads/2026/02/info_icon-1.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+  
+  p, div {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+}
+
+.insolvenzo-collapsible {
+  padding: 0;
+  overflow: hidden;
+
+  .insolvenzo-info-box-toggle {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border: 0;
+    background: transparent;
+    color: #0073aa;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid #0073aa;
+      outline-offset: -2px;
+    }
+
+    &:hover,
+    &:focus {
+      background-image: none !important;
+      color: #0073aa;
+    }
+
+    .insolvenzo-info-box-toggle-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &::before {
+        content: '';
+        width: 18px;
+        height: 18px;
+        flex: 0 0 18px;
+        background-image: url('https://insolvenzo.eu/wp-content/uploads/2026/02/info_icon-1.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+    }
+
+    .insolvenzo-collapse-icon {
+      width: 12px;
+      height: 12px;
+      border-right: 2px solid currentColor;
+      border-bottom: 2px solid currentColor;
+      transform: rotate(45deg);
+      transition: transform 0.2s ease;
+      flex: 0 0 auto;
+      margin-right: 4px;
+    }
+  }
+
+  .insolvenzo-info-box-panel {
+    padding: 0 1.5rem 1.5rem;
+  }
+
+  &.is-open {
+    .insolvenzo-info-box-toggle .insolvenzo-collapse-icon {
+      transform: rotate(-135deg);
+    }
+  }
+}
+
+.insolvenzo-video-box {
+  
+  .insolvenzo-video-container {
+    margin-top: 1rem;
+    
+    video {
+      border-radius: 4px;
+      background: #000;
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+/* ===================================
+   Editor Two-Column Layout
+   =================================== */
+.insolvenzo-editor-step-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  padding: 12px;
+  background: #f9f9f9;
+  border-left: 4px solid #0073aa;
+  margin-bottom: 12px;
+  
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.insolvenzo-editor-step-left {
+  h4 {
+    margin: 0 0 12px 0;
+    color: #333;
+  }
+  
+  p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+}
+
+.insolvenzo-editor-step-right {
+  min-width: 0; // Fix for grid overflow
+}
+
+/* ===================================
+   Editor Info Boxes (Text & Video)
+   =================================== */
+.insolvenzo-editor-info-boxes {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.insolvenzo-editor-info-box {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.insolvenzo-editor-info-box-header {
+  background: #f0f0f0;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #ddd;
+  
+  strong {
+    color: #333;
+    font-size: 0.95rem;
+  }
+}
+
+.insolvenzo-editor-info-box-content {
+  padding: 1rem;
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #333;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 0.9rem;
+    
+    &:focus {
+      outline: none;
+      border-color: #0073aa;
+      box-shadow: 0 0 0 1px #0073aa;
+    }
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  
+  button {
+    font-size: 0.9rem;
+  }
+}
+
+.insolvenzo-video-preview {
+  video {
+    border-radius: 4px;
+    background: #000;
+  }
+}
+
+/* Responsive adjustments for stepper on mobile */
+@media (max-width: 768px) {
+  .insolvenzo-horizontal-stepper {
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 1rem 0.5rem;
+  }
+  
+  .insolvenzo-stepper-step {
+    min-width: 60px;
+  }
+  
+  .insolvenzo-stepper-label {
+    font-size: 0.7rem;
+    max-width: 80px;
+  }
+  
+  .insolvenzo-stepper-circle {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
+  
+  .insolvenzo-stepper-line {
+    min-width: 15px;
+    max-width: 40px;
+  }
+}
+/* Neue Styles für Step 4 */
+
+.insolvenzo-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.insolvenzo-checkbox-group label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.insolvenzo-checkbox-group input[type="checkbox"] {
+  margin: 0;
+  width: auto;
+  cursor: pointer;
+}
+
+.insolvenzo-indent-input {
+  margin-left: 1.5rem !important;
+  margin-top: 0.5rem !important;
+}
+
+.insolvenzo-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  background: #fafafa;
+  overflow: hidden;
+}
+
+.insolvenzo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+}
+
+.insolvenzo-card-header h5 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.insolvenzo-card-content {
+  padding: 1.5rem;
+}
+
+.insolvenzo-card-child h6 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem 0;
+  color: #333;
+}
+
+.insolvenzo-card-child h6:first-child {
+  margin-top: 0;
+}
+
+.insolvenzo-subgroup {
+  background: #fff;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.insolvenzo-subgroup-nested {
+  background: #f9f9f9;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+}
+
+.insolvenzo-form-row {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.insolvenzo-form-row .insolvenzo-form-group {
+  flex: 1;
+}
+
+.insolvenzo-btn-primary,
+.insolvenzo-btn-secondary,
+.insolvenzo-btn-remove {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.insolvenzo-btn-primary {
+  background: #0073aa;
+  color: #fff;
+}
+
+.insolvenzo-btn-primary:hover {
+  background: #005a87;
+}
+
+.insolvenzo-btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ccc;
+}
+
+.insolvenzo-btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.insolvenzo-btn-remove {
+  background: #d9534f;
+  color: #fff;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+}
+
+.insolvenzo-btn-remove:hover {
+  background: #c9302c;
+}
+
+.insolvenzo-display-field {
+  padding: 0.75rem;
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.insolvenzo-calculation-display {
+  background: #f9f9f9;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.insolvenzo-calc-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.insolvenzo-calc-row span:first-child {
+  font-weight: 500;
+}
+
+.insolvenzo-info-text {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0.5rem 0;
+  font-style: italic;
+}
+
+.insolvenzo-info-text small {
+  font-size: 0.85rem;
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+fieldset legend {
+  padding: 0;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}

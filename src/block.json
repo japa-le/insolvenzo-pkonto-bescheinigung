@@ -1,0 +1,126 @@
+{
+  "apiVersion": 3,
+  "name": "insolvenzo/public-form",
+  "version": "1.0.0",
+  "title": "Insolvenzo Formular",
+  "category": "widgets",
+  "icon": "media-document",
+  "description": "Öffentliches Formular mit automatischem PDF-Versand",
+  "attributes": {
+    "step1TextTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step1TextContent": {
+      "type": "string",
+      "default": ""
+    },
+    "step1VideoTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step1VideoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "step1VideoId": {
+      "type": "number",
+      "default": 0
+    },
+    "step2TextTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step2TextContent": {
+      "type": "string",
+      "default": ""
+    },
+    "step2VideoTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step2VideoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "step2VideoId": {
+      "type": "number",
+      "default": 0
+    },
+    "step3TextTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step3TextContent": {
+      "type": "string",
+      "default": ""
+    },
+    "step3VideoTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step3VideoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "step3VideoId": {
+      "type": "number",
+      "default": 0
+    },
+    "step4TextTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step4TextContent": {
+      "type": "string",
+      "default": ""
+    },
+    "step4VideoTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step4VideoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "step4VideoId": {
+      "type": "number",
+      "default": 0
+    },
+    "step5TextTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step5TextContent": {
+      "type": "string",
+      "default": ""
+    },
+    "step5VideoTitle": {
+      "type": "string",
+      "default": ""
+    },
+    "step5VideoUrl": {
+      "type": "string",
+      "default": ""
+    },
+    "step5VideoId": {
+      "type": "number",
+      "default": 0
+    },
+    "grundfreibetrag": {
+      "type": "number",
+      "default": 1499.99
+    },
+    "unterhaltspersonBetrag": {
+      "type": "number",
+      "default": 326.04
+    }
+  },
+  "supports": {
+    "html": false,
+    "interactivity": true
+  },
+  "editorScript": "file:./index.js",
+  "viewScript": "file:./view.js",
+  "style": "file:./style-index.css"
+}

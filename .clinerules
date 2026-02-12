@@ -1,0 +1,45 @@
+# Insolvenzo Gutenberg Block – Entwicklungsvorgaben
+
+## 1. Coding Standards & Frameworks
+- Folge strikt den **WordPress Coding Standards** für JavaScript und React.
+- Verwende **ausschließlich** offizielle `@wordpress/components` (z. B. `TextControl`, `SelectControl`, `PanelBody`).
+- **Verbot:** Keine externen UI-Bibliotheken oder Custom-UI-Frameworks verwenden.
+- **Layout:** Zweispaltige Struktur implementieren:
+  - **Links:** Formular / Stepper.
+  - **Rechts:** Sidebar für Infotexte und optionales Video.
+
+## 2. Architektur & State Management
+- **Struktur:** Der Block ist ein mehrstufiger Stepper (Wizard).
+- **Daten:** Speichere alle Benutzereingaben in den `attributes`.
+- **Synchronität:** Jedes in `edit.js` genutzte Attribut muss zwingend in `block.json` definiert sein.
+- **Transparenz:** Keine versteckten States für Formulardaten. Alle Daten müssen im zentralen Datenobjekt für Power Automate gesammelt werden.
+
+## 3. React-Regeln
+- **Hooks:** React Hooks nur sparsam einsetzen.
+- **Side Effects:** Keine Side Effects in `edit.js`.
+- **Attribut-Updates:** Kein `useEffect` zur Synchronisation – nutze ausschließlich `setAttributes`.
+- **State:** Kein externes State-Management (Redux etc.). Lokaler State nur für UI-Zustände (z. B. aktueller Step).
+
+## 4. Validierung & Step-Logik
+- **Logik:** Validierung erfolgt schrittweise pro Step.
+- **Bedingung:** "Weiter"-Button nur aktivieren, wenn alle Pflichtfelder des aktuellen Steps gültig sind.
+- **Keine globale Validierung:** Prüfe immer nur den Kontext des aktiven Schritts.
+
+## 5. Workflow & Automatisierung
+- **Build-Pflicht:** Nach jeder Code-Änderung MUSS `npm run build` ausgeführt werden.
+- **Abnahme:** Änderungen sind erst abgeschlossen, wenn der Build fehlerfrei ist.
+- **Manueller Sync:** Nach erfolgreichem Build auf Feedback warten. Keine weiteren Änderungen ohne Rückmeldung.
+
+## 6. Frontend- & Build-Logik
+- **Trennung:** - `edit.js`: Nur für den Gutenberg-Editor.
+  - `view.js`: Nur für Frontend-Logik (Events, API-Anfragen).
+- **Dateistruktur:** Bestehende Ordnerstruktur nicht verändern. Keine neuen Dateien ohne explizite Anweisung erstellen.
+
+## 7. Power Automate Integration (Scope)
+- **Ziel:** Späterer POST-Request (JSON) an Power-Automate-Webhook.
+- **Aktueller Fokus:** Ausschließlich UI, Felder, Step-Logik und Validierung.
+- **Keine Annahmen:** API-Logik und URLs werden erst nach Abschluss der UI-Phase implementiert.
+
+## 8. Inhalt & Rechtliches
+- Texte, Labels und Hilfetexte nur aus expliziten Vorgaben übernehmen.
+- Keine Interpretation oder Ergänzung von rechtlichen Inhalten.
