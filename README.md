@@ -92,10 +92,6 @@ insolvenzo-form/
 - WordPress 5.0 or higher
 - PHP 7.4 or higher
 
-## License
-
-[Add your license here - e.g., GPL v2 or later]
-
 ## Author
 
 Janos
