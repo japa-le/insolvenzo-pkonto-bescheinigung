@@ -81,7 +81,6 @@ npm run build
 insolvenzo-form/
 ├── src/              # Source files (React components, styles)
 ├── build/            # Built/compiled files
-├── languages/        # Translation files (.po, .mo, .json)
 ├── package.json      # Project dependencies
 ├── insolvenzo-form.php  # Main plugin file
 └── README.md         # This file
