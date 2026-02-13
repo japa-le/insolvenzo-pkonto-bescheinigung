@@ -208,18 +208,20 @@ function initStep4Children(root) {
     });
   }
 
-  // Toggle für "kind_selbst[0][art]" und weitere
-  const childSelects = step4.querySelectorAll('[name^="kind_selbst["][name$="[art]"]');
-  childSelects.forEach(select => {
-    const kindIndex = select.name.match(/\d+/)[0];
-    const sonstigenDiv = step4.querySelector(`#kind_${kindIndex}_selbst_sonstige`);
-    
-    select.addEventListener('change', function() {
-      if (sonstigenDiv) {
-        sonstigenDiv.style.display = this.value === 'sonstige' ? 'block' : 'none';
+  // Toggle für einmalige Erfassung "Weitere regelmäßige Geldleistung für das Kind selbst"
+  const kindSelbstArt = step4.querySelector('#kind_selbst_art');
+  const kindSelbstSonstige = step4.querySelector('#kind_selbst_sonstige');
+
+  if (kindSelbstArt) {
+    const updateKindSelbstSonstige = () => {
+      if (kindSelbstSonstige) {
+        kindSelbstSonstige.style.display = kindSelbstArt.value === 'sonstige' ? 'block' : 'none';
       }
-    });
-  });
+    };
+
+    kindSelbstArt.addEventListener('change', updateKindSelbstSonstige);
+    updateKindSelbstSonstige();
+  }
 }
 
 function initStep5OneTime(root) {
@@ -404,82 +406,10 @@ function addChild() {
         </div>
         <p class="insolvenzo-info-text"><small>Bei Nachweis durch Kontoauszug muss der Betrag mit dem eingetragenen Betrag übereinstimmen.</small></p>
       </div>
-
-      <!-- Weitere Leistungen für dieses Kind -->
-      <div id="kind_${newIndex}_leistungen_wrapper">
-        <h6>Weitere regelmäßige Geldleistungen für dieses Kind</h6>
-        <div class="insolvenzo-subgroup kind_${newIndex}_leistungen">
-          <div class="insolvenzo-form-group">
-            <label>Bezeichnung der Leistung</label>
-            <input type="text" name="kind_leistung[${newIndex}][0][bezeichnung]" placeholder="z.B. Kinderzuschlag..." />
-          </div>
-          <div class="insolvenzo-form-group">
-            <label>Monatlicher Betrag (€)</label>
-            <input type="number" name="kind_leistung[${newIndex}][0][betrag]" step="0.01" />
-          </div>
-          <div class="insolvenzo-form-group">
-            <label>Nachweis liegt vor in Form von</label>
-            <div class="insolvenzo-checkbox-group">
-              <label><input type="checkbox" name="kind_leistung[${newIndex}][0][nachweis]" value="bescheid" /> Bescheid</label>
-              <label><input type="checkbox" name="kind_leistung[${newIndex}][0][nachweis]" value="konto" /> Kontoauszug</label>
-              <label><input type="checkbox" name="kind_leistung[${newIndex}][0][nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Weitere regelmäßige Geldleistung für das Kind selbst -->
-      <div id="kind_${newIndex}_selbst_wrapper">
-        <h6>Weitere regelmäßige Geldleistung für das Kind selbst</h6>
-        <p class="insolvenzo-info-text"><small>Diese Zahlungen betreffen Geld für das Kind, nicht Ihre eigene Unterhaltspflicht.</small></p>
-        
-        <div class="insolvenzo-subgroup">
-          <div class="insolvenzo-form-group">
-            <label>Art der Geldleistung für das Kind</label>
-            <select name="kind_selbst[${newIndex}][art]" class="kind-selbst-art-select">
-              <option value="">Bitte wählen</option>
-              <option value="kinderzuschlag">Kinderzuschlag</option>
-              <option value="unterhaltsvorschuss">Unterhaltsvorschuss</option>
-              <option value="barunterhalt">Laufender Barunterhalt für das Kind</option>
-              <option value="sonstige">Sonstige regelmäßige Geldleistung für das Kind</option>
-            </select>
-          </div>
-
-          <div id="kind_${newIndex}_selbst_sonstige" class="insolvenzo-form-group" style="display: none;">
-            <input type="text" name="kind_selbst[${newIndex}][sonstige_art]" placeholder="Bitte angeben..." />
-          </div>
-
-          <div class="insolvenzo-form-group">
-            <label>Monatlicher Betrag (€)</label>
-            <input type="number" name="kind_selbst[${newIndex}][betrag]" step="0.01" />
-          </div>
-
-          <div class="insolvenzo-form-group">
-            <label>Nachweis liegt vor in Form von</label>
-            <div class="insolvenzo-checkbox-group">
-              <label><input type="checkbox" name="kind_selbst[${newIndex}][nachweis]" value="bescheid" /> Bescheid (z.B. Kinderzuschlag, Unterhaltsvorschuss)</label>
-              <label><input type="checkbox" name="kind_selbst[${newIndex}][nachweis]" value="konto" /> Kontoauszug</label>
-              <label><input type="checkbox" name="kind_selbst[${newIndex}][nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
-            </div>
-          </div>
-        </div>
-        <p class="insolvenzo-info-text"><small><strong>Hinweis:</strong> Tragen Sie hier nur Zahlungen ein, die Sie erhalten. Unterhaltspflichten, die Sie selbst erfüllen (Natural- oder Barunterhalt), werden nicht hier, sondern bereits beim Freibetrag berücksichtigt.</small></p>
-      </div>
     </div>
   `;
 
   container.appendChild(newChild);
-
-  // Event-Listener für neuen Select hinzufügen
-  const newSelect = newChild.querySelector('.kind-selbst-art-select');
-  if (newSelect) {
-    newSelect.addEventListener('change', function() {
-      const sonstigenDiv = document.querySelector(`#kind_${newIndex}_selbst_sonstige`);
-      if (sonstigenDiv) {
-        sonstigenDiv.style.display = this.value === 'sonstige' ? 'block' : 'none';
-      }
-    });
-  }
 }
 
 function removeChildCard(button) {

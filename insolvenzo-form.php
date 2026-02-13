@@ -600,72 +600,76 @@ function insolvenzo_form_render_callback($attributes, $content) {
                                         </div>
                                         <p class="insolvenzo-info-text"><small>Bei Nachweis durch Kontoauszug muss der Betrag mit dem eingetragenen Betrag übereinstimmen.</small></p>
                                     </div>
-
-                                    <!-- Weitere Leistungen für dieses Kind -->
-                                    <div id="kind_0_leistungen_wrapper">
-                                        <h6>Weitere regelmäßige Geldleistungen für dieses Kind</h6>
-                                        <div class="insolvenzo-subgroup kind_0_leistungen">
-                                            <div class="insolvenzo-form-group">
-                                                <label>Bezeichnung der Leistung</label>
-                                                <input type="text" name="kind_leistung[0][0][bezeichnung]" placeholder="z.B. Kinderzuschlag..." />
-                                            </div>
-                                            <div class="insolvenzo-form-group">
-                                                <label>Monatlicher Betrag (€)</label>
-                                                <input type="number" name="kind_leistung[0][0][betrag]" step="0.01" />
-                                            </div>
-                                            <div class="insolvenzo-form-group">
-                                                <label>Nachweis liegt vor in Form von</label>
-                                                <div class="insolvenzo-checkbox-group">
-                                                    <label><input type="checkbox" name="kind_leistung[0][0][nachweis]" value="bescheid" /> Bescheid</label>
-                                                    <label><input type="checkbox" name="kind_leistung[0][0][nachweis]" value="konto" /> Kontoauszug</label>
-                                                    <label><input type="checkbox" name="kind_leistung[0][0][nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- Weitere regelmäßige Geldleistung für das Kind selbst -->
-                                    <div id="kind_0_selbst_wrapper">
-                                        <h6>Weitere regelmäßige Geldleistung für das Kind selbst</h6>
-                                        <p class="insolvenzo-info-text"><small>Diese Zahlungen betreffen Geld für das Kind, nicht Ihre eigene Unterhaltspflicht.</small></p>
-                                        
-                                        <div class="insolvenzo-subgroup">
-                                            <div class="insolvenzo-form-group">
-                                                <label>Art der Geldleistung für das Kind</label>
-                                                <select name="kind_selbst[0][art]">
-                                                    <option value="">Bitte wählen</option>
-                                                    <option value="kinderzuschlag">Kinderzuschlag</option>
-                                                    <option value="unterhaltsvorschuss">Unterhaltsvorschuss</option>
-                                                    <option value="barunterhalt">Laufender Barunterhalt für das Kind</option>
-                                                    <option value="sonstige">Sonstige regelmäßige Geldleistung für das Kind</option>
-                                                </select>
-                                            </div>
-
-                                            <div id="kind_0_selbst_sonstige" class="insolvenzo-form-group" style="display: none;">
-                                                <input type="text" name="kind_selbst[0][sonstige_art]" placeholder="Bitte angeben..." />
-                                            </div>
-
-                                            <div class="insolvenzo-form-group">
-                                                <label>Monatlicher Betrag (€)</label>
-                                                <input type="number" name="kind_selbst[0][betrag]" step="0.01" />
-                                            </div>
-
-                                            <div class="insolvenzo-form-group">
-                                                <label>Nachweis liegt vor in Form von</label>
-                                                <div class="insolvenzo-checkbox-group">
-                                                    <label><input type="checkbox" name="kind_selbst[0][nachweis]" value="bescheid" /> Bescheid (z.B. Kinderzuschlag, Unterhaltsvorschuss)</label>
-                                                    <label><input type="checkbox" name="kind_selbst[0][nachweis]" value="konto" /> Kontoauszug</label>
-                                                    <label><input type="checkbox" name="kind_selbst[0][nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="insolvenzo-info-text"><small><strong>Hinweis:</strong> Tragen Sie hier nur Zahlungen ein, die Sie erhalten. Unterhaltspflichten, die Sie selbst erfüllen (Natural- oder Barunterhalt), werden nicht hier, sondern bereits beim Freibetrag berücksichtigt.</small></p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <button type="button" class="insolvenzo-btn-primary elementor-button" onclick="addChild()">+ Weiteres Kind hinzufügen</button>
+
+                        <!-- Weitere Leistungen für Kinder (einmalige Erfassung) -->
+                        <div id="kinder_weitere_leistungen_wrapper" style="margin-top: 24px;">
+                            <h4>Weitere regelmäßige Geldleistungen für Kinder</h4>
+                            <p class="insolvenzo-info-text"><small>Diese Angaben werden nur einmal erfasst und gelten ergänzend zur Kind-Erfassung oben.</small></p>
+
+                            <div id="kind_leistung_einmalig_wrapper">
+                                <h6>Weitere regelmäßige Geldleistungen für Kinder</h6>
+                                <div class="insolvenzo-subgroup">
+                                    <div class="insolvenzo-form-group">
+                                        <label>Bezeichnung der Leistung</label>
+                                        <input type="text" name="kind_leistung[bezeichnung]" placeholder="z.B. Kinderzuschlag..." />
+                                    </div>
+                                    <div class="insolvenzo-form-group">
+                                        <label>Monatlicher Betrag (€)</label>
+                                        <input type="number" name="kind_leistung[betrag]" step="0.01" />
+                                    </div>
+                                    <div class="insolvenzo-form-group">
+                                        <label>Nachweis liegt vor in Form von</label>
+                                        <div class="insolvenzo-checkbox-group">
+                                            <label><input type="checkbox" name="kind_leistung[nachweis]" value="bescheid" /> Bescheid</label>
+                                            <label><input type="checkbox" name="kind_leistung[nachweis]" value="konto" /> Kontoauszug</label>
+                                            <label><input type="checkbox" name="kind_leistung[nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="kind_selbst_einmalig_wrapper">
+                                <h6>Weitere regelmäßige Geldleistung für das Kind selbst</h6>
+                                <p class="insolvenzo-info-text"><small>Diese Zahlungen betreffen Geld für das Kind, nicht Ihre eigene Unterhaltspflicht.</small></p>
+
+                                <div class="insolvenzo-subgroup">
+                                    <div class="insolvenzo-form-group">
+                                        <label>Art der Geldleistung für das Kind</label>
+                                        <select id="kind_selbst_art" name="kind_selbst[art]">
+                                            <option value="">Bitte wählen</option>
+                                            <option value="kinderzuschlag">Kinderzuschlag</option>
+                                            <option value="unterhaltsvorschuss">Unterhaltsvorschuss</option>
+                                            <option value="barunterhalt">Laufender Barunterhalt für das Kind</option>
+                                            <option value="sonstige">Sonstige regelmäßige Geldleistung für das Kind</option>
+                                        </select>
+                                    </div>
+
+                                    <div id="kind_selbst_sonstige" class="insolvenzo-form-group" style="display: none;">
+                                        <input type="text" name="kind_selbst[sonstige_art]" placeholder="Bitte angeben..." />
+                                    </div>
+
+                                    <div class="insolvenzo-form-group">
+                                        <label>Monatlicher Betrag (€)</label>
+                                        <input type="number" name="kind_selbst[betrag]" step="0.01" />
+                                    </div>
+
+                                    <div class="insolvenzo-form-group">
+                                        <label>Nachweis liegt vor in Form von</label>
+                                        <div class="insolvenzo-checkbox-group">
+                                            <label><input type="checkbox" name="kind_selbst[nachweis]" value="bescheid" /> Bescheid (z.B. Kinderzuschlag, Unterhaltsvorschuss)</label>
+                                            <label><input type="checkbox" name="kind_selbst[nachweis]" value="konto" /> Kontoauszug</label>
+                                            <label><input type="checkbox" name="kind_selbst[nachweis]" value="sonst" /> Sonstiger geeigneter Nachweis</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="insolvenzo-info-text"><small><strong>Hinweis:</strong> Tragen Sie hier nur Zahlungen ein, die Sie erhalten. Unterhaltspflichten, die Sie selbst erfüllen (Natural- oder Barunterhalt), werden nicht hier, sondern bereits beim Freibetrag berücksichtigt.</small></p>
+                            </div>
+                        </div>
 
                     </div>
                     <div class="insolvenzo-step-right">
