@@ -121,138 +121,127 @@ function insolvenzo_form_render_callback($attributes, $content) {
             </div>
 
             <!-- Step 1: Eingangsabfrage -->
-           <div class="insolvenzo-step" data-step-number="1">
-  <h3><span class="insolvenzo-step-roman">I</span> Angaben zur Bescheinigung der bescheinigenden Person oder Stelle</h3>
+            <div class="insolvenzo-step" data-step-number="1">
+              <h3><span class="insolvenzo-step-roman">I</span> Angaben zur Bescheinigung der bescheinigenden Person oder Stelle</h3>
 
-  <div class="insolvenzo-step-two-columns">
-    <div class="insolvenzo-step-left">
+              <div class="insolvenzo-step-two-columns">
+                <div class="insolvenzo-step-left">
 
-      <div class="insolvenzo-form-group">
-        <label for="contact_email">E-Mail Kontaktadresse</label>
-        <input type="email" id="contact_email" name="contact_email" data-required />
-      </div>
+                  <div class="insolvenzo-form-group">
+                    <label for="contact_email">E-Mail Kontaktadresse</label>
+                    <input type="email" id="contact_email" name="contact_email" data-required />
+                  </div>
 
-      <!-- Auswahl -->
-      <div class="insolvenzo-form-group">
-        <label for="issuer_type">Wer stellt diese Bescheinigung aus?</label>
-        <select id="issuer_type" name="issuer_type" data-required>
-          <option value="">Bitte wählen</option>
-          <option value="gesamt">Gesamtbescheinigung</option>
-          <option value="zahlung">Bestätigung einer eigenen Zahlung</option>
-        </select>
-      </div>
+                  <!-- Gemeinschaftskonto -->
+                  <div class="insolvenzo-form-group">
+                    <label>Handelt es sich bei dem Konto um ein Gemeinschaftskonto?</label>
+                    <div class="insolvenzo-radio-group">
+                      <label><input type="radio" name="gemeinschaftskonto" value="ja" data-required data-required-radio="gemeinschaftskonto" /> Ja</label>
+                      <label><input type="radio" name="gemeinschaftskonto" value="nein" /> Nein</label>
+                    </div>
+                  </div>
 
-      <!-- Abschnitt A: Gesamtbescheinigung -->
-      <div class="insolvenzo-subsection" data-issuer-section="gesamt" style="display:none;">
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_aussteller">Aussteller</label>
-          <select id="gesamt_aussteller" name="gesamt_aussteller">
-            <option value="">Bitte wählen</option>
-            <option value="arbeitgeber">Arbeitgeber</option>
-            <option value="anwalt">Anwalt</option>
-            <option value="steuerberater">Steuerberater</option>
-            <option value="schuldnerberatung">Schuldnerberatung</option>
-          </select>
-        </div>
+                  <!-- Wer stellt die Bescheinigung aus? -->
+                  <div class="insolvenzo-form-group">
+                    <label for="issuer_type">Wer stellt diese Bescheinigung aus?</label>
+                    <select id="issuer_type" name="issuer_type" data-required>
+                      <option value="">Bitte wählen</option>
+                      <option value="arbeitgeber">Arbeitgeber</option>
+                      <option value="anwalt">Anwalt (ist eine geeignete Person)</option>
+                      <option value="steuerberater">Steuerberater (ist eine geeignete Person)</option>
+                      <option value="familienkasse">Familienkasse</option>
+                      <option value="jobcenter">Jobcenter / Sozialamt</option>
+                      <option value="rentenstelle">Rentenstelle</option>
+                      <option value="sonstige_behoerde">Sonstige Behörde oder Stelle</option>
+                      <option value="schuldnerberatung">Schuldnerberatung</option>
+                    </select>
+                  </div>
 
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_stelle_bezeichnung">Bezeichnung der Stelle</label>
-          <input type="text" id="gesamt_stelle_bezeichnung" name="gesamt_stelle_bezeichnung" />
-        </div>
+                  <!-- Adressfelder für alle AUSSER Schuldnerberatung (hat Firma) -->
+                  <div class="insolvenzo-issuer-fields" data-issuer-fields="with-firma" style="display:none;">
+                    <div class="insolvenzo-form-group">
+                      <label for="issuer_firma">Firma</label>
+                      <input type="text" id="issuer_firma" name="issuer_firma" data-required />
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="issuer_name">Name</label>
+                      <input type="text" id="issuer_name" name="issuer_name" data-required />
+                    </div>
+                    <div class="insolvenzo-form-row">
+                      <div class="insolvenzo-form-group" style="flex: 3;">
+                        <label for="issuer_strasse">Straße</label>
+                        <input type="text" id="issuer_strasse" name="issuer_strasse" data-required />
+                      </div>
+                      <div class="insolvenzo-form-group" style="flex: 1;">
+                        <label for="issuer_hausnummer">Hausnummer</label>
+                        <input type="text" id="issuer_hausnummer" name="issuer_hausnummer" data-required />
+                      </div>
+                    </div>
+                    <div class="insolvenzo-form-row">
+                      <div class="insolvenzo-form-group" style="flex: 1;">
+                        <label for="issuer_plz">Postleitzahl</label>
+                        <input type="text" id="issuer_plz" name="issuer_plz" data-required />
+                      </div>
+                      <div class="insolvenzo-form-group" style="flex: 2;">
+                        <label for="issuer_ort">Ort</label>
+                        <input type="text" id="issuer_ort" name="issuer_ort" data-required />
+                      </div>
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="issuer_ansprech_vorname">Ansprechpartner:in – Vorname <em>(optional)</em></label>
+                      <input type="text" id="issuer_ansprech_vorname" name="issuer_ansprech_vorname" />
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="issuer_ansprech_nachname">Ansprechpartner:in – Nachname <em>(optional)</em></label>
+                      <input type="text" id="issuer_ansprech_nachname" name="issuer_ansprech_nachname" />
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="issuer_ansprech_funktion">Ansprechpartner:in – Funktion <em>(optional)</em></label>
+                      <input type="text" id="issuer_ansprech_funktion" name="issuer_ansprech_funktion" />
+                    </div>
+                  </div>
 
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_strasse_hausnummer">Straße und Hausnummer</label>
-          <input type="text" id="gesamt_strasse_hausnummer" name="gesamt_strasse_hausnummer" />
-        </div>
+                  <!-- Adressfelder nur für Schuldnerberatung (KEIN Firma-Feld) -->
+                  <div class="insolvenzo-issuer-fields" data-issuer-fields="schuldnerberatung" style="display:none;">
+                    <div class="insolvenzo-form-group">
+                      <label for="sb_name">Name</label>
+                      <input type="text" id="sb_name" name="sb_name" data-required />
+                    </div>
+                    <div class="insolvenzo-form-row">
+                      <div class="insolvenzo-form-group" style="flex: 3;">
+                        <label for="sb_strasse">Straße</label>
+                        <input type="text" id="sb_strasse" name="sb_strasse" data-required />
+                      </div>
+                      <div class="insolvenzo-form-group" style="flex: 1;">
+                        <label for="sb_hausnummer">Hausnummer</label>
+                        <input type="text" id="sb_hausnummer" name="sb_hausnummer" data-required />
+                      </div>
+                    </div>
+                    <div class="insolvenzo-form-row">
+                      <div class="insolvenzo-form-group" style="flex: 1;">
+                        <label for="sb_plz">Postleitzahl</label>
+                        <input type="text" id="sb_plz" name="sb_plz" data-required />
+                      </div>
+                      <div class="insolvenzo-form-group" style="flex: 2;">
+                        <label for="sb_ort">Ort</label>
+                        <input type="text" id="sb_ort" name="sb_ort" data-required />
+                      </div>
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="sb_ansprech_vorname">Ansprechpartner:in – Vorname <em>(optional)</em></label>
+                      <input type="text" id="sb_ansprech_vorname" name="sb_ansprech_vorname" />
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="sb_ansprech_nachname">Ansprechpartner:in – Nachname <em>(optional)</em></label>
+                      <input type="text" id="sb_ansprech_nachname" name="sb_ansprech_nachname" />
+                    </div>
+                    <div class="insolvenzo-form-group">
+                      <label for="sb_ansprech_funktion">Ansprechpartner:in – Funktion <em>(optional)</em></label>
+                      <input type="text" id="sb_ansprech_funktion" name="sb_ansprech_funktion" />
+                    </div>
+                  </div>
 
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_plz">Postleitzahl</label>
-          <input type="text" id="gesamt_plz" name="gesamt_plz" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_ansprech_vorname">Ansprechperson (optional) – Vorname</label>
-          <input type="text" id="gesamt_ansprech_vorname" name="gesamt_ansprech_vorname" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_ansprech_nachname">Ansprechperson (optional) – Nachname</label>
-          <input type="text" id="gesamt_ansprech_nachname" name="gesamt_ansprech_nachname" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="gesamt_ansprech_funktion">Ansprechperson (optional) – Funktion</label>
-          <input type="text" id="gesamt_ansprech_funktion" name="gesamt_ansprech_funktion" />
-        </div>
-
-        <!-- Zusatzangaben nur wenn Aussteller = Schuldnerberatung -->
-        <div class="insolvenzo-subsection" data-gesamt-extra="schuldnerberatung" style="display:none;">
-          <div class="insolvenzo-form-group">
-            <label for="sb_behoerde_gericht">Anerkennende Behörde oder Gericht</label>
-            <input type="text" id="sb_behoerde_gericht" name="sb_behoerde_gericht" />
-          </div>
-
-          <div class="insolvenzo-form-group">
-            <label for="sb_datum_anerkennung">Datum des Anerkennungsbescheids</label>
-            <input type="text" id="sb_datum_anerkennung" name="sb_datum_anerkennung" />
-          </div>
-
-          <div class="insolvenzo-form-group">
-            <label for="sb_aktenzeichen">Aktenzeichen</label>
-            <input type="text" id="sb_aktenzeichen" name="sb_aktenzeichen" />
-          </div>
-        </div>
-      </div>
-
-      <!-- Abschnitt B: Bestätigung einer eigenen Zahlung -->
-      <div class="insolvenzo-subsection" data-issuer-section="zahlung" style="display:none;">
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_aussteller">Aussteller</label>
-          <select id="zahlung_aussteller" name="zahlung_aussteller">
-            <option value="">Bitte wählen</option>
-            <option value="familienkasse">Familienkasse</option>
-            <option value="jobcenter">Jobcenter / Sozialamt</option>
-            <option value="rentenstelle">Rentenstelle</option>
-            <option value="sonstige">Sonstige Behörde oder Stelle</option>
-          </select>
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_behoerde_name">Name der Behörde oder Stelle</label>
-          <input type="text" id="zahlung_behoerde_name" name="zahlung_behoerde_name" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_strasse_hausnummer">Straße und Hausnummer</label>
-          <input type="text" id="zahlung_strasse_hausnummer" name="zahlung_strasse_hausnummer" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_plz">Postleitzahl</label>
-          <input type="text" id="zahlung_plz" name="zahlung_plz" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_ort">Ort</label>
-          <input type="text" id="zahlung_ort" name="zahlung_ort" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_ansprech_vorname">Ansprechperson (optional) – Vorname</label>
-          <input type="text" id="zahlung_ansprech_vorname" name="zahlung_ansprech_vorname" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_ansprech_nachname">Ansprechperson (optional) – Nachname</label>
-          <input type="text" id="zahlung_ansprech_nachname" name="zahlung_ansprech_nachname" />
-        </div>
-
-        <div class="insolvenzo-form-group">
-          <label for="zahlung_ansprech_funktion">Ansprechperson (optional) – Funktion</label>
-          <input type="text" id="zahlung_ansprech_funktion" name="zahlung_ansprech_funktion" />
-        </div>
-      </div>
-    </div>
+                </div>
                     <div class="insolvenzo-step-right">
                         <?php
                         $step1_text_title = isset($attributes['step1TextTitle']) ? $attributes['step1TextTitle'] : '';
@@ -264,12 +253,12 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         insolvenzo_render_collapsible_text_box(
                             $step1_text_title,
                             $step1_text_content,
-                            ($step1_has_text && !$step1_has_video)
+                            $step1_has_text
                         );
-                        insolvenzo_render_collapsible_video_box($step1_video_url, $step1_has_video);
+                        insolvenzo_render_collapsible_video_box($step1_video_url, ($step1_has_video && !$step1_has_text));
                         ?>
-                    </div>
                 </div>
+              </div>
             </div>
 
             <!-- Step 2: Angaben zum Kontoinhaber und Pfändungsschutzkonto -->
@@ -295,24 +284,26 @@ function insolvenzo_form_render_callback($attributes, $content) {
                             <input type="date" id="account_holder_geburtsdatum" name="account_holder_geburtsdatum" data-required />
                         </div>
                         
-                        <div class="insolvenzo-form-group">
-                            <label for="account_holder_strasse">Straße</label>
-                            <input type="text" id="account_holder_strasse" name="account_holder_strasse" data-required />
+                        <div class="insolvenzo-form-row">
+                            <div class="insolvenzo-form-group" style="flex: 3;">
+                                <label for="account_holder_strasse">Straße</label>
+                                <input type="text" id="account_holder_strasse" name="account_holder_strasse" data-required />
+                            </div>
+                            <div class="insolvenzo-form-group" style="flex: 1;">
+                                <label for="account_holder_hausnummer">Hausnummer</label>
+                                <input type="text" id="account_holder_hausnummer" name="account_holder_hausnummer" data-required />
+                            </div>
                         </div>
-                        
-                        <div class="insolvenzo-form-group">
-                            <label for="account_holder_hausnummer">Hausnummer</label>
-                            <input type="text" id="account_holder_hausnummer" name="account_holder_hausnummer" data-required />
-                        </div>
-                        
-                        <div class="insolvenzo-form-group">
-                            <label for="account_holder_plz">Postleitzahl</label>
-                            <input type="text" id="account_holder_plz" name="account_holder_plz" data-required />
-                        </div>
-                        
-                        <div class="insolvenzo-form-group">
-                            <label for="account_holder_ort">Ort</label>
-                            <input type="text" id="account_holder_ort" name="account_holder_ort" data-required />
+
+                        <div class="insolvenzo-form-row">
+                            <div class="insolvenzo-form-group" style="flex: 1;">
+                                <label for="account_holder_plz">Postleitzahl</label>
+                                <input type="text" id="account_holder_plz" name="account_holder_plz" data-required />
+                            </div>
+                            <div class="insolvenzo-form-group" style="flex: 2;">
+                                <label for="account_holder_ort">Ort</label>
+                                <input type="text" id="account_holder_ort" name="account_holder_ort" data-required />
+                            </div>
                         </div>
 
                         <!-- Angaben zum Pfändungsschutzkonto -->
@@ -354,9 +345,9 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         insolvenzo_render_collapsible_text_box(
                             $step2_text_title,
                             $step2_text_content,
-                            ($step2_has_text && !$step2_has_video)
+                            $step2_has_text
                         );
-                        insolvenzo_render_collapsible_video_box($step2_video_url, $step2_has_video);
+                        insolvenzo_render_collapsible_video_box($step2_video_url, ($step2_has_video && !$step2_has_text));
                         ?>
                     </div>
                 </div>
@@ -389,7 +380,8 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         
                         <div class="insolvenzo-form-group">
                             <label for="dependents_count">Anzahl unterhaltsberechtigter Personen</label>
-                            <input type="number" id="dependents_count" name="dependents_count" min="0" value="0" data-required />
+                            <input type="number" id="dependents_count" name="dependents_count" min="0" max="5" value="0" data-required />
+                            <p class="insolvenzo-info-text"><small>Maximal 5 unterhaltsberechtigte Personen können berücksichtigt werden.</small></p>
                         </div>
 
                         <div id="dependents_details_wrapper">
@@ -408,7 +400,11 @@ function insolvenzo_form_render_callback($attributes, $content) {
                                     <span id="considered_persons_count">0</span>
                                 </div>
                                 <div class="insolvenzo-calc-row">
-                                    <span>Betrag pro Person:</span>
+                                    <span>Betrag für die 1. Person:</span>
+                                    <span><?php echo isset($attributes['erstePersonBetrag']) ? number_format((float) $attributes['erstePersonBetrag'], 2, ',', '.') : '585,23'; ?> €</span>
+                                </div>
+                                <div class="insolvenzo-calc-row">
+                                    <span>Betrag je weitere Person (ab 2.):</span>
                                     <span><?php echo isset($attributes['unterhaltspersonBetrag']) ? number_format((float) $attributes['unterhaltspersonBetrag'], 2, ',', '.') : '326,04'; ?> €</span>
                                 </div>
                                 <div class="insolvenzo-calc-row" style="border-top: 1px solid #ccc; padding-top: 8px; margin-top: 8px;">
@@ -420,6 +416,11 @@ function insolvenzo_form_render_callback($attributes, $content) {
                                 type="hidden"
                                 name="unterhaltsperson_betrag"
                                 value="<?php echo esc_attr(isset($attributes['unterhaltspersonBetrag']) ? number_format((float) $attributes['unterhaltspersonBetrag'], 2, '.', '') : '326.04'); ?>"
+                            />
+                            <input
+                                type="hidden"
+                                name="erste_person_betrag"
+                                value="<?php echo esc_attr(isset($attributes['erstePersonBetrag']) ? number_format((float) $attributes['erstePersonBetrag'], 2, '.', '') : '585.23'); ?>"
                             />
                         </div>
 
@@ -456,9 +457,9 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         insolvenzo_render_collapsible_text_box(
                             $step3_text_title,
                             $step3_text_content,
-                            ($step3_has_text && !$step3_has_video)
+                            $step3_has_text
                         );
-                        insolvenzo_render_collapsible_video_box($step3_video_url, $step3_has_video);
+                        insolvenzo_render_collapsible_video_box($step3_video_url, ($step3_has_video && !$step3_has_text));
                         ?>
                     </div>
                 </div>
@@ -588,7 +589,7 @@ function insolvenzo_form_render_callback($attributes, $content) {
                                     
                                     <div class="insolvenzo-form-group">
                                         <label>Monatlicher Betrag (€)</label>
-                                        <input type="number" name="kindergeld[0][betrag]" step="0.01" placeholder="250,00 €" />
+                                        <input type="number" name="kindergeld[0][betrag]" step="0.01" placeholder="259,00 €" />
                                     </div>
 
                                     <div class="insolvenzo-form-group">
@@ -683,9 +684,9 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         insolvenzo_render_collapsible_text_box(
                             $step4_text_title,
                             $step4_text_content,
-                            ($step4_has_text && !$step4_has_video)
+                            $step4_has_text
                         );
-                        insolvenzo_render_collapsible_video_box($step4_video_url, $step4_has_video);
+                        insolvenzo_render_collapsible_video_box($step4_video_url, ($step4_has_video && !$step4_has_text));
                         ?>
                     </div>
                 </div>
@@ -853,9 +854,9 @@ function insolvenzo_form_render_callback($attributes, $content) {
                         insolvenzo_render_collapsible_text_box(
                             $step5_text_title,
                             $step5_text_content,
-                            ($step5_has_text && !$step5_has_video)
+                            $step5_has_text
                         );
-                        insolvenzo_render_collapsible_video_box($step5_video_url, $step5_has_video);
+                        insolvenzo_render_collapsible_video_box($step5_video_url, ($step5_has_video && !$step5_has_text));
                         ?>
                     </div>
                 </div>

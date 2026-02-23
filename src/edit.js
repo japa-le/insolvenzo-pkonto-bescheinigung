@@ -167,8 +167,28 @@ function StepContent({ step, attributes, setAttributes }) {
 							Der Grundfreibetrag wird systemseitig gemäß der gültigen Pfändungstabelle gesetzt.
 						</p>
 
+					<label style={{ display: 'block', fontWeight: 'bold', marginTop: '14px', marginBottom: '8px' }}>
+							Erhöhungsbetrag für die erste unterhaltspflichtige Person (€)
+						</label>
+						<input
+							type="number"
+							value={attributes.erstePersonBetrag || 585.23}
+							onChange={(e) => setAttributes({ erstePersonBetrag: parseFloat(e.target.value) || 585.23 })}
+							step="0.01"
+							style={{
+								width: '100%',
+								padding: '8px',
+								border: '1px solid #ddd',
+								borderRadius: '4px',
+								fontSize: '14px'
+							}}
+						/>
+						<p style={{ fontSize: '0.85rem', color: '#666', marginTop: '6px', marginBottom: '0' }}>
+							Betrag für die erste unterhaltspflichtige Person (höherer Satz).
+						</p>
+
 						<label style={{ display: 'block', fontWeight: 'bold', marginTop: '14px', marginBottom: '8px' }}>
-							Zugerechneter Betrag je unterhaltspflichtige Person (€)
+							Zugerechneter Betrag je weitere unterhaltspflichtige Person (€)
 						</label>
 						<input
 							type="number"
@@ -184,7 +204,7 @@ function StepContent({ step, attributes, setAttributes }) {
 							}}
 						/>
 						<p style={{ fontSize: '0.85rem', color: '#666', marginTop: '6px', marginBottom: '0' }}>
-							Dieser Wert wird in der Berechnung des Erhöhungsbetrags im Frontend verwendet.
+							Betrag je weiterer unterhaltspflichtiger Person (ab der 2. Person, niedrigerer Satz).
 						</p>
 					</div>
 				)}

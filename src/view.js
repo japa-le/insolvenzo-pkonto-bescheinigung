@@ -81,19 +81,48 @@ function initStepper(root) {
       e.preventDefault();
       const nextIndex = Math.min(current + 1, steps.length - 1);
       const stepEl = steps[current];
+
+      // Check if an element is inside a hidden ancestor
+      function isInsideHiddenParent(el) {
+        let node = el.parentElement;
+        while (node && node !== stepEl) {
+          if (node.style && node.style.display === 'none') return true;
+          node = node.parentElement;
+        }
+        return false;
+      }
+
       const required = Array.from(stepEl.querySelectorAll('[data-required]'));
-      const invalid = required.filter(input => !input.value || input.value.trim() === '');
-      
+      const seenRadioGroups = new Set();
+
+      const invalid = required.filter((input) => {
+        // Skip fields inside hidden containers
+        if (isInsideHiddenParent(input)) return false;
+
+        // Handle radio groups: check once per group name
+        if (input.type === 'radio' && input.hasAttribute('data-required-radio')) {
+          const groupName = input.getAttribute('data-required-radio');
+          if (seenRadioGroups.has(groupName)) return false;
+          seenRadioGroups.add(groupName);
+          return !stepEl.querySelector(`input[name="${groupName}"]:checked`);
+        }
+
+        // Standard value check
+        return !input.value || input.value.trim() === '';
+      });
+
       if (invalid.length) {
-        invalid[0].focus();
-        // Show validation error (optional)
-        invalid[0].style.borderColor = 'red';
+        const firstInvalid = invalid[0];
+        firstInvalid.focus();
+        firstInvalid.style.borderColor = 'red';
+        firstInvalid.style.outline = '2px solid red';
         setTimeout(() => {
-          invalid[0].style.borderColor = '';
-        }, 2000);
+          firstInvalid.style.borderColor = '';
+          firstInvalid.style.outline = '';
+        }, 2500);
         return;
       }
-      
+
       show(nextIndex);
     });
   }
@@ -116,45 +145,32 @@ function initIssuerTypeToggle(root) {
   const step1 = root.querySelector('.insolvenzo-step[data-step-number="1"]');
   if (!step1) return;
 
-  const typeSelect = step1.querySelector('#issuer_type');
-  const sections = Array.from(step1.querySelectorAll('[data-issuer-section]'));
-
-  const gesamtAussteller = step1.querySelector('#gesamt_aussteller');
-  const sbExtra = step1.querySelector('[data-gesamt-extra="schuldnerberatung"]');
+  const issuerSelect = step1.querySelector('#issuer_type');
+  const fieldsWithFirma = step1.querySelector('[data-issuer-fields="with-firma"]');
+  const fieldsSb = step1.querySelector('[data-issuer-fields="schuldnerberatung"]');
 
   const hideAll = () => {
-    sections.forEach((s) => { s.style.display = 'none'; });
-    if (sbExtra) sbExtra.style.display = 'none';
+    if (fieldsWithFirma) fieldsWithFirma.style.display = 'none';
+    if (fieldsSb) fieldsSb.style.display = 'none';
   };
 
-  const showSection = (val) => {
+  const update = () => {
     hideAll();
-    if (!val) return;
-    const target = step1.querySelector(`[data-issuer-section="${val}"]`);
-    if (target) target.style.display = '';
+    if (!issuerSelect || !issuerSelect.value) return;
+
+    if (issuerSelect.value === 'schuldnerberatung') {
+      if (fieldsSb) fieldsSb.style.display = '';
+    } else {
+      if (fieldsWithFirma) fieldsWithFirma.style.display = '';
+    }
   };
 
-  const updateSbExtra = () => {
-    if (!sbExtra || !gesamtAussteller) return;
-    sbExtra.style.display = (gesamtAussteller.value === 'schuldnerberatung') ? '' : 'none';
-  };
-
-  // initial
+  // initial state
   hideAll();
-  if (typeSelect && typeSelect.value) {
-    showSection(typeSelect.value);
-    updateSbExtra();
-  }
+  update();
 
-  if (typeSelect) {
-    typeSelect.addEventListener('change', () => {
-      showSection(typeSelect.value);
-      updateSbExtra();
-    });
-  }
-
-  if (gesamtAussteller) {
-    gesamtAussteller.addEventListener('change', updateSbExtra);
+  if (issuerSelect) {
+    issuerSelect.addEventListener('change', update);
   }
 }
 
@@ -166,10 +182,15 @@ function initStep3BasicCalculation(root) {
   const considerPersonsEl = step3.querySelector('#considered_persons_count');
   const enhancementEl = step3.querySelector('#enhancement_amount');
   const perPersonInput = step3.querySelector('[name="unterhaltsperson_betrag"]');
+  const erstePersonInput = step3.querySelector('[name="erste_person_betrag"]');
 
   const perPerson = perPersonInput && perPersonInput.value
     ? parseFloat(perPersonInput.value)
     : 326.04;
+
+  const erstePerson = erstePersonInput && erstePersonInput.value
+    ? parseFloat(erstePersonInput.value)
+    : 585.23;
 
   function formatEUR(val) {
     return val.toLocaleString('de-DE', {
@@ -178,12 +199,23 @@ function initStep3BasicCalculation(root) {
     });
   }
 
-  function recalc() {
-    const dependents = Math.max(0, parseInt(dependentsInput.value || '0', 10));
-    const consider = dependents;
-    const enhancement = dependents * perPerson;
+  const MAX_DEPENDENTS = 5;
 
-    considerPersonsEl.textContent = String(consider).padStart(2, '0');
+  function recalc() {
+    let dependents = Math.max(0, parseInt(dependentsInput.value || '0', 10));
+
+    // Enforce maximum of 5
+    if (dependents > MAX_DEPENDENTS) {
+      dependents = MAX_DEPENDENTS;
+      dependentsInput.value = MAX_DEPENDENTS;
+    }
+
+    let enhancement = 0;
+    if (dependents >= 1) {
+      enhancement = erstePerson + (dependents - 1) * perPerson;
+    }
+
+    considerPersonsEl.textContent = String(dependents);
     enhancementEl.innerHTML = `<strong>${formatEUR(enhancement)} €</strong>`;
   }
 
@@ -394,7 +426,7 @@ function addChild() {
       
       <div class="insolvenzo-form-group">
         <label>Monatlicher Betrag (€)</label>
-        <input type="number" name="kindergeld[${newIndex}][betrag]" step="0.01" placeholder="250,00 €" />
+        <input type="number" name="kindergeld[${newIndex}][betrag]" step="0.01" placeholder="259,00 €" />
       </div>
 
       <div class="insolvenzo-form-group">
@@ -654,6 +686,14 @@ function initJsonSubmit(root) {
 
     const formData = new FormData(form);
     const payload = formDataToJson(formData);
+
+    // `unterhaltsperson_betrag` gilt nur für weitere unterhaltspflichtige Personen
+    // (ab der 2. Person). Bei 0 oder 1 Person keinen Betrag senden.
+    const dependentsCount = parseInt(payload.dependents_count || '0', 10);
+    if (Number.isNaN(dependentsCount) || dependentsCount < 2) {
+      payload.unterhaltsperson_betrag = '';
+    }
+
     const checkboxPaths = getCheckboxFieldPaths(form);
     checkboxPaths.forEach((path) => {
       ensurePathIsArray(payload, path);

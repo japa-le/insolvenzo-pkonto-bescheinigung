@@ -236,6 +236,7 @@
 }
 
 .insolvenzo-stepper-label {
+  white-space: nowrap;
   font-size: 0.75rem;
   color: #666;
   text-align: center;
@@ -277,7 +278,7 @@
 
 .insolvenzo-step-left {
   padding-right: 1rem;
-  
+
   @media (max-width: 768px) {
     padding-right: 0;
   }

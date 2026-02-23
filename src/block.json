@@ -114,6 +114,10 @@
     "unterhaltspersonBetrag": {
       "type": "number",
       "default": 326.04
+    },
+    "erstePersonBetrag": {
+      "type": "number",
+      "default": 585.23
     }
   },
   "supports": {
