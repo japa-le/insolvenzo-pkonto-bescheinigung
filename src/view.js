@@ -667,6 +667,49 @@ function showSubmitStatus(root, message, type = 'info') {
   }
 }
 
+function normalizeEmptyAmountFieldsToZero(payload, form) {
+  const amountInputs = form.querySelectorAll('input[name]');
+
+  const setNestedValueOverwrite = (target, path, value) => {
+    let cursor = target;
+
+    for (let i = 0; i < path.length; i += 1) {
+      const key = path[i];
+      const isLast = i === path.length - 1;
+      const nextKey = path[i + 1];
+      const nextContainerIsArray = nextKey === '' || /^\d+$/.test(nextKey || '');
+
+      if (isLast) {
+        cursor[key] = value;
+        return;
+      }
+
+      if (!Object.prototype.hasOwnProperty.call(cursor, key) || typeof cursor[key] !== 'object' || cursor[key] === null) {
+        cursor[key] = nextContainerIsArray ? [] : {};
+      }
+
+      cursor = cursor[key];
+    }
+  };
+
+  amountInputs.forEach((input) => {
+    const inputName = input.name || '';
+    const isAmountField = /(betrag|amount)/i.test(inputName);
+
+    if (!isAmountField) {
+      return;
+    }
+
+    const rawValue = typeof input.value === 'string' ? input.value.trim() : input.value;
+    if (rawValue !== '') {
+      return;
+    }
+
+    const keys = parseFormKey(inputName);
+    setNestedValueOverwrite(payload, keys, 0);
+  });
+}
+
 function initJsonSubmit(root) {
   const form = root.querySelector('form');
   if (!form) return;
@@ -687,11 +730,20 @@ function initJsonSubmit(root) {
     const formData = new FormData(form);
     const payload = formDataToJson(formData);
 
+    // Leere Betragsfelder als 0 an PA senden (statt leerem String).
+    normalizeEmptyAmountFieldsToZero(payload, form);
+
     // `unterhaltsperson_betrag` gilt nur für weitere unterhaltspflichtige Personen
     // (ab der 2. Person). Bei 0 oder 1 Person keinen Betrag senden.
     const dependentsCount = parseInt(payload.dependents_count || '0', 10);
     if (Number.isNaN(dependentsCount) || dependentsCount < 2) {
-      payload.unterhaltsperson_betrag = '';
+      payload.unterhaltsperson_betrag = 0;
+    }
+
+    // `erste_person_betrag` gilt nur, wenn mindestens 1 unterhaltspflichtige
+    // Person erfasst wurde. Sonst als null senden.
+    if (Number.isNaN(dependentsCount) || dependentsCount < 1) {
+      payload.erste_person_betrag = null;
     }
 
     const checkboxPaths = getCheckboxFieldPaths(form);
